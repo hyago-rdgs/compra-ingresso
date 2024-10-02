@@ -1,6 +1,6 @@
 function comprar() {
     let tipo_ingresso = document.getElementById("tipo-ingresso").value;
-    let quantidade = document.getElementById("qtd").value;  
+    let quantidade = document.getElementById("qtd").value;
 
     if (isNaN(quantidade) || quantidade <= 0) {
         alert("Insira uma quantidade válida");
@@ -12,42 +12,21 @@ function comprar() {
         return;
     }
 
-    compra_ingressos(tipo_ingresso, quantidade)
+    verifica_tipo_ingresso(tipo_ingresso, quantidade);
 }
 
-function compra_ingressos(tipo_ingresso, quantidade) {
+function verifica_tipo_ingresso(tipo_ingresso, quantidade) {
     switch (tipo_ingresso) {
         case 'pista':
-            let qtd_pista = document.getElementById("qtd-pista").textContent;
-            if (parseInt(qtd_pista) < parseInt(quantidade)) {
-                alert("Não temos ingressos suficientes!");
-                return;
-            } else {
-                qtd_pista -= quantidade;
-                document.getElementById("qtd-pista").textContent = qtd_pista;
-            }
+            compra_ingresso(tipo_ingresso, quantidade)
             break;
 
         case 'inferior':
-            let qtd_inferior = document.getElementById("qtd-inferior").textContent;
-            if (parseInt(qtd_inferior) < parseInt(quantidade)) {
-                alert("Não temos ingressos suficientes!");
-                return;
-            } else {
-                qtd_inferior -= quantidade;
-                document.getElementById("qtd-inferior").textContent = qtd_inferior;
-            }
+            compra_ingresso(tipo_ingresso, quantidade)
             break;
 
         case 'superior':
-            let qtd_superior = document.getElementById("qtd-superior").textContent;
-            if (parseInt(qtd_superior) < parseInt(quantidade)) {
-                alert("Não temos ingressos suficientes!");
-                return;
-            } else {
-                qtd_superior -= quantidade;
-                document.getElementById("qtd-superior").textContent = qtd_superior;
-            }
+            compra_ingresso(tipo_ingresso, quantidade)
             break;
 
         default:
@@ -55,3 +34,15 @@ function compra_ingressos(tipo_ingresso, quantidade) {
             break;
     }
 }
+
+function compra_ingresso(tipo_ingresso, quantidade) {
+    let qtd_ingresso = document.getElementById(`qtd-${tipo_ingresso}`).textContent;
+    if (parseInt(qtd_ingresso) < parseInt(quantidade)) {
+        alert("Não temos ingressos suficientes!");
+        return;
+    } else {
+        qtd_ingresso -= quantidade;
+        document.getElementById(`qtd-${tipo_ingresso}`).textContent = qtd_ingresso;
+        alert("Compra realizada com sucesso!");
+    }
+} 
